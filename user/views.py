@@ -3,13 +3,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login, authenticate, logout
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 
 
 from .models import Profile
 from .serializers import ProfileSerializer, UserSerializer
+from .forms import RegistrationForm
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -37,14 +39,6 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     def put(self, request, *args, **kwargs):
         return super().put(request, *args, **kwargs)
 
-    # def user_profile(request, id):
-    #     profile = Profile.objects.get(id=id)
-    #     template = loader.get_template("profile.html")
-    #     context = {
-    #         "profile": profile,
-    #     }
-    #     return HttpResponse(template.render(context, request))
-
 
 def all_users(request):
     users = get_user_model().objects.all().values()
@@ -53,3 +47,24 @@ def all_users(request):
         "users": users,
     }
     return HttpResponse(template.render(context, request))
+
+
+def signup(request):
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            Profile.objects.create(user=user)
+            username = form.cleaned_data.get("username")
+            raw_password = form.cleaned_data.get("password1")
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect("/profile/")
+    else:
+        form = RegistrationForm()
+    return render(request, "registration/register.html", {"form": form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("/accounts/login/")
