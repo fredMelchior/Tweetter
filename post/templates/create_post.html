@@ -1,0 +1,10 @@
+{% block title %}Post | Tweeter{% endblock title %}
+{% block content %}
+    <form method="post">
+        <h2>Create Post</h2>
+        {{ post_form.as_p }}
+        {% csrf_token %}
+        
+        <button type="submit">Publicar</button>
+    </form>
+{% endblock content %}

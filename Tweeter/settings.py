@@ -72,6 +72,7 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             os.path.join(BASE_DIR, "user/templates"),
+            os.path.join(BASE_DIR, "post/templates"),
             os.path.join(BASE_DIR, "templates/registration"),
         ],
         "APP_DIRS": True,
@@ -86,7 +87,7 @@ TEMPLATES = [
     },
 ]
 
-LOGIN_REDIRECT_URL = "/profile/"
+LOGIN_REDIRECT_URL = "/home/"
 
 WSGI_APPLICATION = "Tweeter.wsgi.application"
 

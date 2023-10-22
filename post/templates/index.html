@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+    Tweeter
+{% endblock title %}
+{% block content %}
+    <div>
+        {% for post in post_list %}
+            <div>
+                <h3>{{ post.title }}</h3>
+                <div><h4>{{ post.author }}</h4><p>{{ post.created_on }}</p></div>
+                <p>{{ post.content }}</p>
+                {% comment %} {% if post.slug is not None %}
+                    <a href="{% url 'redirect' post.slug %}">Ver Post</a>
+                {% else %}
+                    <p>Tweeter</p>
+                {% endif %} {% endcomment %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
