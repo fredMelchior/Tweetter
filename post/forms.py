@@ -7,7 +7,7 @@ from .models import Post
 class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["title", "content", "status"]
+        fields = ["title", "status", "content"]
 
     def save(self, commit=True):
         instance = super(CreatePostForm, self).save(commit=False)

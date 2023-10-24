@@ -11,12 +11,18 @@
 <body>
     <header>
         <h1>Tweeter</h1>
-        {% if user.is_autheticated %}
-            <a href="{% url "logout" %}">logout</a>
-        {% endif %}
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            {% comment %} <li><a href="{% url 'user-profile' user.id %}">Profile</a></li> {% endcomment %}
+            <li><a href="{% url 'create_post' %}">Add Post</a></li>
+            {% if user.is_autheticated %}
+                <li><a href="{% url "logout" %}">logout</a></li>
+            {% endif %}
+        </ul>
     </header>
 {% block content %}
 {% endblock %}
-    <footer><p>Tweeter &copy; –– 2023 –– Todos os direitos reservados.</p></footer>
+    <footer><p>Tweeter &copy; – 2023 – Todos os direitos reservados.</p></footer>
 </body>
 </html>

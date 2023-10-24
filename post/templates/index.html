@@ -3,12 +3,12 @@
     Tweeter
 {% endblock title %}
 {% block content %}
-    <div>
+    <div class="feed">
         {% for post in post_list %}
-            <div>
-                <h3>{{ post.title }}</h3>
-                <div><h4>{{ post.author }}</h4><p>{{ post.created_on }}</p></div>
-                <p>{{ post.content }}</p>
+            <div class="post-container">
+                <h3 class="post-title">{{ post.title }}</h3>
+                <div class="post-info"><h4 class="post-author">@{{ post.author }}</h4><p class="post-date">{{ post.created_on }}</p></div>
+                <p class="post-content">{{ post.content }}</p>
                 {% comment %} {% if post.slug is not None %}
                     <a href="{% url 'redirect' post.slug %}">Ver Post</a>
                 {% else %}

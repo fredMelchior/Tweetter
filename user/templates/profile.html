@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% block title %}
-    {{ profile.username }}
+    {{ profile.user }}
 {% endblock title %}
 
 {% block content %}
-
-    <h3>{{ profile.user }}</h3>
-    <div>
-        <p>{{ profile.bio }}</p>
+    <div class="feed">
+        <div class="profile-div">
+            <h3>@{{ profile.user }}</h3>
+            <div class="bio-div">
+                <p>{{ profile.bio }}</p>
+            </div>
+        </div>
+        {% for post in post %}{% endfor %}
     </div>
 {% endblock  %}
