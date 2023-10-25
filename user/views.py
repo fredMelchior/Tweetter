@@ -5,13 +5,15 @@ from rest_framework.response import Response
 
 from django.contrib.auth import get_user_model, login, authenticate, logout
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 
 
 from .models import Profile
 from .serializers import ProfileSerializer, UserSerializer
 from .forms import RegistrationForm
+
+from post.models import Post
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -33,11 +35,23 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     template_name = "profile.html"
 
     def get(self, request, id):
-        queryset = Profile.objects.get(id=id)
-        return Response({"profile": queryset})
+        profile = Profile.objects.get(id=id)
+        user_posts = Post.objects.filter(author=profile.user).order_by("-created_on")
+        return Response({"profile": profile, "user_posts": user_posts})
 
-    def put(self, request, *args, **kwargs):
-        return super().put(request, *args, **kwargs)
+
+def update_bio(request):
+    if request.method == "POST":
+        profile_id = request.POST.get("profile_id")
+        new_bio = request.POST.get("new_bio")
+
+        profile = Profile(id=profile_id)
+        profile.bio = new_bio
+        profile.save()
+
+        return JsonResponse({"success": True})
+
+    return JsonResponse({"success": False})
 
 
 def all_users(request):
@@ -59,7 +73,7 @@ def signup(request):
             raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect("/profile/")
+            return redirect("/users/profile/")
     else:
         form = RegistrationForm()
     return render(request, "registration/register.html", {"form": form})
@@ -67,4 +81,4 @@ def signup(request):
 
 def logout_view(request):
     logout(request)
-    return redirect("/accounts/login/")
+    return redirect("/login/")

@@ -2,15 +2,45 @@
 {% block title %}
     {{ profile.user }}
 {% endblock title %}
-
 {% block content %}
     <div class="feed">
         <div class="profile-div">
             <h3>@{{ profile.user }}</h3>
             <div class="bio-div">
-                <p>{{ profile.bio }}</p>
+                <p id="bio-text">{{ profile.bio }}</p>
+                <textarea id="bio-edit" style="display: none; width: 100%; resize: none;"> </textarea>
             </div>
+            <button style="margin: 16px 0 8px;" id="button_profile" onclick={toggleBioEdit()}>Edit bio</button>
         </div>
-        {% block profile_posts %}{% endblock profile_posts %}
+        <div>
+            {% for post in user_posts  %}
+                <div class="post-container" style="margin-top: 40px;">
+                    <h3 class="post-title">{{ post.title }}</h3>
+                    <div class="post-info"><h4 class="post-author">@{{ post.author }}</h4><p class="post-date">{{ post.created_on }}</p></div>
+                    <p class="post-content">{{ post.content }}</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
+    <script>
+        function toggleBioEdit() {
+            var bioText = document.getElementById("bio-text");
+            var bioEdit = document.getElementById("bio-edit");
+            var editBioButton = document.getElementById("button_profile");
+
+            if (bioEdit.style.display === "none") {
+                bioText.style.display = "none";
+                bioEdit.style.display = "block";
+                bioEdit.value = bioText.innerText;
+                editBioButton.innerHTML = "Save bio";
+            } else {
+                bioText.style.display = "block";
+                bioEdit.style.display = "none";
+                bioText.innerText = bioEdit.value;
+                editBioButton.innerHTML = "Edit bio";
+            }
+        }
+
+        </script>
+        
 {% endblock  %}
