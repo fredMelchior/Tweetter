@@ -16,11 +16,10 @@
         <h1>Tweeter</h1>
         <ul>
             <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="#">Profile</a></li>
             {% comment %} <li><a href="{% url 'user-profile' user.id %}">Profile</a></li> {% endcomment %}
             <li><a href="{% url 'create_post' %}">Add Post</a></li>
+            <li><a href="{% url "logout" %}">logout</a></li>
             {% if user.is_autheticated %}
-                <li><a href="{% url "logout" %}">logout</a></li>
             {% endif %}
         </ul>
     </header>
