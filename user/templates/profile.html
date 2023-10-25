@@ -11,6 +11,6 @@
                 <p>{{ profile.bio }}</p>
             </div>
         </div>
-        {% for post in post %}{% endfor %}
+        {% block profile_posts %}{% endblock profile_posts %}
     </div>
 {% endblock  %}

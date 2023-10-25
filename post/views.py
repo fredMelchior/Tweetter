@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.contrib.auth import get_user_model
 from django.views import generic
 
 from .models import Post
@@ -23,6 +24,7 @@ def create_post(request):
             post = post_form.save(commit=False)
             post.author = request.user
             post_form.save()
+            return redirect("/home/")
     else:
         post_form = CreatePostForm()
     context = {

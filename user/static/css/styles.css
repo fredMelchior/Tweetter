@@ -1,3 +1,7 @@
+* {
+    font-family: 'Roboto Mono', monospace;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -13,6 +17,7 @@ header {
     color: white;
     display: flex;
     align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
     justify-content: space-between;
 }
 
@@ -37,8 +42,7 @@ ul li a {
 }
 
 ul li a:hover {
-    border: 1px solid white;
-    border-radius: 4px;
+    border-bottom: 1px solid white;
 }
 
 form {
@@ -118,28 +122,34 @@ form > ul {
 .create-post-form {
     background-color: #1179b6;
     align-items: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .create-post-form label {
     font-size: 20px;
-    margin-bottom: 24px;
-
 }
 
 .create-post-form input {
     width: 200%;
     padding: 8px;
     border-radius: 4px;
+    margin-top: 16px;
+    font-size: 16px;
 }
 
 .create-post-form textarea {
     width: 150%;
     border-radius: 4px;
+    margin-top: 16px;
+    font-size: 16px;
 }
 
 .create-post-form select {
     padding: 8px;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 body > div > form > p:nth-child(3) > label {
@@ -160,13 +170,39 @@ body > div > form > p:nth-child(3) > label {
     background-color: black;
 }
 
+.post-detail {
+    background-color: #ffffffc5;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 64px 0 0;
+}
+
+.post-detail h2 {
+    font-size: 32px;
+}
+
+.post-detail > div {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #2a2929b5;
+}
+
+.post-detail > div > h4 {
+    font-style: italic;
+}
+
+.post-detail > p {
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+
 .all-users {
     font-size: 32px;
     color: white;
 }
 
 .users-list {
-    columns: 2;
+    columns: 3;
 }
 
 .users {
@@ -175,7 +211,6 @@ body > div > form > p:nth-child(3) > label {
 
 .users div {
     background-color: black;
-    /* width: 40%; */
     padding: 8px;
     border-radius: 8px;
     margin: 0 auto 24px;
