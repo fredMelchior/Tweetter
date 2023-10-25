@@ -1,0 +1,17 @@
+{% extends "profile.html" %}
+{% block profile_posts %}
+    <div class="feed">
+        {% for post in author_posts  %}
+        <div class="post-container">
+            <h3 class="post-title">{{ post.title }}</h3>
+                <div class="post-info"><h4 class="post-author">@{{ post.author }}</h4><p class="post-date">{{ post.created_on }}</p></div>
+            <p class="post-content">{{ post.content }}</p>
+            {% comment %} {% if post.slug is not None %}
+                <a href="{% url 'redirect' post.slug %}">Ver Post</a>
+            {% else %}
+                <p>Tweeter</p>
+            {% endif %} {% endcomment %}
+        </div>
+        {% endfor %}
+    </div>
+{% endblock profile_posts %}
