@@ -11,7 +11,7 @@ from django.template import loader
 
 from .models import Profile
 from .serializers import ProfileSerializer, UserSerializer
-from .forms import RegistrationForm
+from .forms import RegistrationForm, UpdateBioForm
 
 from post.models import Post
 
@@ -36,8 +36,28 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
     def get(self, request, id):
         profile = Profile.objects.get(id=id)
+        user_id = self.kwargs.get("id")
+        user = profile.user
         user_posts = Post.objects.filter(author=profile.user).order_by("-created_on")
-        return Response({"profile": profile, "user_posts": user_posts})
+        return Response(
+            {
+                "profile": profile,
+                "user": user,
+                "user_posts": user_posts,
+            }
+        )
+
+    def post(self, request, id):
+        profile = Profile.objects.get(id=id)
+        user_posts = Post.objects.filter(author=profile.user).order_by("-created_on")
+
+        bio_form = UpdateBioForm(request.POST, instance=profile)
+        if bio_form.is_valid():
+            bio_form.save()
+
+        return Response(
+            {"profile": profile, "user_posts": user_posts, "bio_form": bio_form}
+        )
 
 
 def update_bio(request):
@@ -73,7 +93,7 @@ def signup(request):
             raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect("/users/profile/")
+            return redirect("/home/")
     else:
         form = RegistrationForm()
     return render(request, "registration/register.html", {"form": form})
