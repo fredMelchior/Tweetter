@@ -23,7 +23,7 @@ def create_post(request):
             post = post_form.save(commit=False)
             post.author = request.user
             post_form.save()
-            return redirect("/home/")
+            return redirect("/")
     else:
         post_form = CreatePostForm()
     context = {

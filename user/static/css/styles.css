@@ -29,6 +29,20 @@ header {
     top: 0;
 }
 
+button {
+    cursor: pointer;
+    padding: 8px;
+    font-size: 18px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+button:hover {
+    border: 1px solid white;
+    color: white;
+    background-color: black;
+}
+
 
 header ul {
     margin-right: 16px;
@@ -89,8 +103,11 @@ input {
 }
 
 .login-form button {
-    width: 20%;
-    margin-top: 32px;
+    cursor: pointer;
+    padding: 8px;
+    font-size: 18px;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 
 .login-form > ul {
