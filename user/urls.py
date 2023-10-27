@@ -1,10 +1,10 @@
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
 from .views import *
 
-router = DefaultRouter()
+router = SimpleRouter()
 
 router.register("user", UserViewSet, basename="user")
 router.register("profile", ProfileViewSet, basename="profile")

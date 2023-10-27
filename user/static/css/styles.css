@@ -118,6 +118,13 @@ input {
     background-color: white;
 }
 
+.post-link {
+    text-decoration: none;
+    padding: 4px;
+    color: white;
+    background-color: black;
+}
+
 .post-title {
     margin: 8px 4px;
     border-bottom: 0.5px solid gray;

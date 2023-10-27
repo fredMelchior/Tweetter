@@ -10,6 +10,7 @@
                     <h3 class="post-title">{{ post.title }}</h3>
                     <div class="post-info"><h4 class="post-author">@{{ post.author }}</h4><p class="post-date">{{ post.created_on }}</p></div>
                     <p class="post-content">{{ post.content }}</p>
+                    <a href="{% url "post_detail" post.slug %}" style="text-decoration: none; text-align: end; color: black; font-weight: 700;">See post</a>
                 </div>
             {% endfor %}
         {% else %}
