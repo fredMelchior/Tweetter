@@ -87,7 +87,7 @@ TEMPLATES = [
     },
 ]
 
-LOGIN_REDIRECT_URL = "/home/"
+LOGIN_REDIRECT_URL = "/"
 
 WSGI_APPLICATION = "Tweeter.wsgi.application"
 
